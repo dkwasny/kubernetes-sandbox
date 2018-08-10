@@ -5,11 +5,11 @@ vm_cpus = 1
 vm_memory = 1000
 
 master_name = "kube-master"
-master_ip = "10.200.0.10"
+master_ip = "10.100.0.10"
 
 node_ids = (1..1)
 node_name_template = "kube-node-%d"
-node_ip_template = "10.200.0.1%d"
+node_ip_template = "10.100.0.1%d"
 mac_address_template = "02:00:00:00:00:0%d"
 
 netmask="255.255.0.0"

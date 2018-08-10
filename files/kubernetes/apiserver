@@ -5,7 +5,7 @@
 #
 
 # The address on the local server to listen to.
-KUBE_API_ADDRESS="--insecure-bind-address=10.200.0.10"
+KUBE_API_ADDRESS="--insecure-bind-address=10.100.0.10"
 
 # The port on the local server to listen on.
 # KUBE_API_PORT="--port=8080"
@@ -17,7 +17,7 @@ KUBE_API_ADDRESS="--insecure-bind-address=10.200.0.10"
 KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:2379"
 
 # Address range to use for services
-KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.200.1.0/24"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.100.1.0/24"
 
 # default admission control policies
 #KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"

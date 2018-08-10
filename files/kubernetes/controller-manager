@@ -4,4 +4,4 @@
 # defaults from config and apiserver should be adequate
 
 # Add your own!
-KUBE_CONTROLLER_MANAGER_ARGS="--cluster-cidr=10.200.2.0/24 --allocate-node-cidrs=true --configure-cloud-routes=false --service-cluster-ip-range=10.200.1.0/24"
+KUBE_CONTROLLER_MANAGER_ARGS="--cluster-cidr=10.200.0.0/16 --allocate-node-cidrs=true --configure-cloud-routes=false --service-cluster-ip-range=10.100.1.0/24"
