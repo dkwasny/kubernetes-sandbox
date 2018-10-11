@@ -10,7 +10,6 @@ master_ip = "10.100.0.10"
 node_ids = (1..1)
 node_name_template = "kube-node-%d"
 node_ip_template = "10.100.0.1%d"
-mac_address_template = "02:00:00:00:00:0%d"
 
 netmask="255.255.0.0"
 
@@ -42,11 +41,10 @@ Vagrant.configure("2") do |config|
 	node_ids.each do |id|
 		ip_address = node_ip_template % [id]
 		vm_name = node_name_template % [id]
-		mac_address = mac_address_template % [id]
 		config.vm.provision :shell, inline: "echo '#{ip_address} #{vm_name}' >> /etc/hosts"
 		config.vm.define vm_name do |node|
 			node.vm.hostname = vm_name
-			node.vm.network :private_network, ip: ip_address, netmask: netmask, mac: mac_address
+			node.vm.network :private_network, ip: ip_address, netmask: netmask
 			node.vm.provision :shell, path: "scripts/kube-node.sh", args: [id]
 		end
 	end
