@@ -5,10 +5,15 @@ NODE_ID="$1";
 echo "Setting up kube-node-$NODE_ID";
 
 echo "Installing packages";
-yum -y install \
+dnf -y install \
 	bridge-utils \
 	kubernetes \
 	flannel;
+
+echo "Copying secrets";
+mkdir /tmp/secrets;
+cp /vagrant/secrets/* /tmp/secrets;
+chown kube:kube /tmp/secrets/*;
 
 echo "Configuring Flannel";
 cp /vagrant/sysconfig-flanneld /etc/sysconfig/flanneld;

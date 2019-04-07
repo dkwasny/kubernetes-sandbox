@@ -3,10 +3,15 @@
 echo "Setting up kube-master";
 
 echo "Installing packages";
-yum -y install \
+dnf -y install \
 	kubernetes \
 	etcd \
 	flannel;
+
+echo "Copying secrets";
+mkdir /tmp/secrets;
+cp /vagrant/secrets/* /tmp/secrets;
+chown kube:kube /tmp/secrets/*;
 
 echo "Configuring etcd";
 cp /vagrant/etcd.conf /etc/etcd/etcd.conf;

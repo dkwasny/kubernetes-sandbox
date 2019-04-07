@@ -17,10 +17,10 @@ KUBE_API_ADDRESS="--insecure-bind-address=10.100.0.10"
 KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:2379"
 
 # Address range to use for services
-KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.100.1.0/24"
+KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.102.0.0/16"
 
 # default admission control policies
 #KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
 
 # Add your own!
-KUBE_API_ARGS=""
+KUBE_API_ARGS="--service-account-key-file=/tmp/secrets/service-account-public.key"
