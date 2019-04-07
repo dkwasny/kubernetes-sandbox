@@ -57,3 +57,5 @@ openssl rsa \
     -pubout \
     -in "$SERVICE_ACCOUNT_PRIVATE_KEY" \
     -out "$SERVICE_ACCOUNT_PUBLIC_KEY";
+
+echo "Generated a miserable little pile of secrets!";
