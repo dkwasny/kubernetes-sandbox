@@ -29,7 +29,7 @@ function generateClientCert() {
         -new \
         -key "$CLIENT_KEY" \
         -out "$CLIENT_CSR" \
-        -subj "/C=US/ST=State/L=City/O=Kube Clients/OU=IT/CN=$HOSTNAME.kwas";
+        -subj "/C=US/ST=State/L=City/O=Kube Clients/OU=IT/CN=$HOSTNAME";
 
     CLIENT_CERT="$CERT_DIR/$HOSTNAME.pem";
     openssl x509 \

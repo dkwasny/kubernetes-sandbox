@@ -16,10 +16,6 @@ client_ip = "10.100.0.20"
 
 netmask = "255.255.0.0"
 
-def getFqdn(hostname)
-    return hostname + ".kwas"
-end
-
 Vagrant.configure("2") do |config|
     config.vm.box = "fedora/29-cloud-base"
 
@@ -38,7 +34,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.provision :shell, inline: "echo '127.0.0.1 localhost' > /etc/hosts"
 
-    config.vm.provision :shell, inline: "echo '#{master_ip} #{getFqdn(master_name)} #{master_name}' >> /etc/hosts"
+    config.vm.provision :shell, inline: "echo '#{master_ip} #{master_name}' >> /etc/hosts"
     config.vm.define master_name do |master|
         master.vm.hostname = master_name
         master.vm.network :private_network, ip: master_ip, netmask: netmask
@@ -48,7 +44,7 @@ Vagrant.configure("2") do |config|
     node_ids.each do |id|
         ip_address = node_ip_template % [id]
         vm_name = node_name_template % [id]
-        config.vm.provision :shell, inline: "echo '#{ip_address} #{getFqdn(vm_name)} #{vm_name}' >> /etc/hosts"
+        config.vm.provision :shell, inline: "echo '#{ip_address} #{vm_name}' >> /etc/hosts"
         config.vm.define vm_name do |node|
             node.vm.hostname = vm_name
             node.vm.network :private_network, ip: ip_address, netmask: netmask
@@ -56,7 +52,7 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    config.vm.provision :shell, inline: "echo '#{client_ip} #{getFqdn(client_name)} #{client_name}' >> /etc/hosts"
+    config.vm.provision :shell, inline: "echo '#{client_ip} #{client_name}' >> /etc/hosts"
     config.vm.define client_name, primary: true do |client|
         client.vm.hostname = client_name
         client.vm.network :private_network, ip: client_ip, netmask: netmask
