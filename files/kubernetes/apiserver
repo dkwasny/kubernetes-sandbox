@@ -5,7 +5,7 @@
 #
 
 # The address on the local server to listen to.
-KUBE_API_ADDRESS="--insecure-bind-address=10.100.0.10"
+KUBE_API_ADDRESS="--bind-address=10.100.0.10"
 
 # The port on the local server to listen on.
 # KUBE_API_PORT="--port=8080"
@@ -14,7 +14,7 @@ KUBE_API_ADDRESS="--insecure-bind-address=10.100.0.10"
 # KUBELET_PORT="--kubelet-port=10250"
 
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=http://kube-master:2379"
+KUBE_ETCD_SERVERS="--etcd-servers=https://kube-master:2379"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.102.0.0/16"
@@ -23,4 +23,14 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.102.0.0/16"
 #KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
 
 # Add your own!
-KUBE_API_ARGS="--service-account-key-file=/tmp/secrets/service-account-public.key"
+KUBE_API_ARGS=" \
+    --service-account-key-file=/tmp/secrets/service-account-public.key \
+    --client-ca-file /etc/secrets/ca.pem \
+    --tls-cert-file /etc/secrets/host.pem \
+    --tls-private-key-file /etc/secrets/host.key \
+    --kubelet-certificate-authority /etc/secrets/ca.pem \
+    --kubelet-client-certificate /etc/secrets/host.pem \
+    --kubelet-client-key /etc/secrets/host.key \
+    --etcd-cafile /etc/secrets/ca.pem \
+    --etcd-certfile /etc/secrets/host.pem \
+    --etcd-keyfile /etc/secrets/host.key"

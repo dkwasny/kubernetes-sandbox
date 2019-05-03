@@ -1,10 +1,16 @@
 # /etc/sysconfig/docker
 
 # Modify these options if you want to change the way the docker daemon runs
-OPTIONS='--selinux-enabled --log-driver=journald --live-restore'
-if [ -z "${DOCKER_CERT_PATH}" ]; then
-    DOCKER_CERT_PATH=/etc/docker
-fi
+OPTIONS="--selinux-enabled \
+    --log-driver=journald \
+    --live-restore \
+    --tlsverify \
+    --tlscacert /etc/secrets/ca.pem \
+    --tlscert /etc/secrets/host.pem \
+    --tlskey /etc/secrets/host.key"
+#if [ -z "${DOCKER_CERT_PATH}" ]; then
+#    DOCKER_CERT_PATH=/etc/docker
+#fi
 
 # Do not add registries in this file anymore. Use /etc/containers/registries.conf
 # instead. For more information reference the registries.conf(5) man page.

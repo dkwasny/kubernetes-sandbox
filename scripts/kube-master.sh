@@ -9,9 +9,11 @@ dnf -y install \
 	flannel;
 
 echo "Copying secrets";
-mkdir /tmp/secrets;
-cp /vagrant/secrets/* /tmp/secrets;
-chown kube:kube /tmp/secrets/*;
+mkdir /etc/secrets;
+cp /vagrant/secrets/ca.pem /etc/secrets/ca.pem;
+cp /vagrant/secrets/kube-master.pem /etc/secrets/host.pem;
+cp /vagrant/secrets/kube-master.key /etc/secrets/host.key;
+chmod 644 /etc/secrets/*;
 
 echo "Configuring etcd";
 cp /vagrant/etcd.conf /etc/etcd/etcd.conf;
@@ -21,8 +23,8 @@ systemctl enable --now etcd;
 
 echo "Configuring Flannel";
 cp /vagrant/sysconfig-flanneld /etc/sysconfig/flanneld;
-etcdctl --endpoints http://kube-master:2379 mkdir /kwas-flannel;
-etcdctl --endpoints http://kube-master:2379 set /kwas-flannel/config < /vagrant/etcd-flannel.json;
+etcdctl --endpoints https://kube-master:2379 mkdir /kwas-flannel;
+etcdctl --endpoints https://kube-master:2379 set /kwas-flannel/config < /vagrant/etcd-flannel.json;
 
 echo "Starting Flannel";
 systemctl enable --now flanneld;

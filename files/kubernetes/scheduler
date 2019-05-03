@@ -1,0 +1,10 @@
+###
+# kubernetes scheduler config
+
+# default config should be adequate
+
+# Add your own!
+KUBE_SCHEDULER_ARGS=" \
+    --client-ca-file /etc/secrets/ca.pem \
+    --tls-cert-file /etc/secrets/host.pem \
+    --tls-private-key-file /etc/secrets/host.key"

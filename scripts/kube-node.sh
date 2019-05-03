@@ -11,9 +11,11 @@ dnf -y install \
 	flannel;
 
 echo "Copying secrets";
-mkdir /tmp/secrets;
-cp /vagrant/secrets/* /tmp/secrets;
-chown kube:kube /tmp/secrets/*;
+mkdir /etc/secrets;
+cp /vagrant/secrets/ca.pem /etc/secrets/ca.pem;
+cp "/vagrant/secrets/kube-node-$NODE_ID.pem" /etc/secrets/host.pem;
+cp "/vagrant/secrets/kube-node-$NODE_ID.key" /etc/secrets/host.key;
+chmod 644 /etc/secrets/*;
 
 echo "Configuring Flannel";
 cp /vagrant/sysconfig-flanneld /etc/sysconfig/flanneld;

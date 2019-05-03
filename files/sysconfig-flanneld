@@ -1,11 +1,14 @@
 # Flanneld configuration options
 
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD_ENDPOINTS="http://kube-master:2379"
+FLANNEL_ETCD_ENDPOINTS="https://kube-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
 FLANNEL_ETCD_PREFIX="/kwas-flannel"
+FLANNEL_ETCD_KEYFILE="/etc/secrets/host.key"
+FLANNEL_ETCD_CERTFILE="/etc/secrets/host.pem"
+FLANNEL_ETCD_CAFILE="/etc/secrets/ca.pem"
 
 # Any additional options that you want to pass
 FLANNEL_OPTIONS="--iface=eth1"
