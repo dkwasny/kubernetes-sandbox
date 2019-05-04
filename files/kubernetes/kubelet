@@ -13,6 +13,6 @@ KUBELET_HOSTNAME=""
 # Add your own!
 KUBELET_ARGS="
     --cgroup-driver systemd
-    --fail-swap-on false
+    --fail-swap-on=false
     --kubeconfig /etc/kubernetes/kubeconfig.yaml
 "
