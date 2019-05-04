@@ -2,7 +2,7 @@
 # kubernetes kubelet (minion) config
 
 # The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
-KUBELET_ADDRESS="--address=10.100.0.1{id}"
+KUBELET_ADDRESS="--address 10.100.0.1{id}"
 
 # The port for the info server to serve on
 # KUBELET_PORT="--port=10250"
@@ -11,14 +11,8 @@ KUBELET_ADDRESS="--address=10.100.0.1{id}"
 KUBELET_HOSTNAME=""
 
 # Add your own!
-KUBELET_ARGS=" \
-    --cgroup-driver=systemd \
-    --fail-swap-on=false \
-    --kubeconfig=/etc/kubernetes/kubeconfig.yaml \
-    --docker-tls \
-    --docker-tls-ca /etc/secrets/ca.pem \
-    --docker-tls-cert /etc/secrets/host.pem \
-    --docker-tls-key /etc/secrets/host.key \
-    --client-ca-file /etc/secrets/ca.pem \
-    --tls-cert-file /etc/secrets/host.pem \
-    --tls-private-key-file /etc/secrets/host.key"
+KUBELET_ARGS="
+    --cgroup-driver systemd
+    --fail-swap-on false
+    --kubeconfig /etc/kubernetes/kubeconfig.yaml
+"

@@ -4,12 +4,11 @@
 # defaults from config and apiserver should be adequate
 
 # Add your own!
-KUBE_CONTROLLER_MANAGER_ARGS=" \
-    --cluster-cidr=10.101.0.0/16 \
-    --allocate-node-cidrs=true \
-    --configure-cloud-routes=false \
-    --service-cluster-ip-range=10.102.0.0/16 \
-    --service-account-private-key-file=/tmp/secrets/service-account-private.key \
-    --client-ca-file /etc/secrets/ca.pem \
-    --tls-cert-file /etc/secrets/host.pem \
-    --tls-private-key-file /etc/secrets/host.key"
+KUBE_CONTROLLER_MANAGER_ARGS="
+    --cluster-cidr 10.101.0.0/16
+    --allocate-node-cidrs true
+    --configure-cloud-routes false
+    --service-cluster-ip-range 10.102.0.0/16
+    --service-account-private-key-file /etc/secrets/service-account-private.key
+    --kubeconfig /etc/kubernetes/kubeconfig.yaml
+"

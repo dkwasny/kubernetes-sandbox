@@ -1,13 +1,15 @@
 #!/bin/bash
 
 HOSTS="
-    kube-master
-    kube-node-1
-    kube-client
+    kube-master:10.100.0.10
+    kube-node-1:10.100.0.11
+    kube-client:10.100.0.20
 ";
 
 DIR_NAME="$(dirname $0)";
 CERT_DIR="$DIR_NAME/files/secrets";
+
+TMP_CERT_EXTENSIONS_FILE="/tmp/tmp-cert-extensions";
 
 # TODO: Encrypt your damn keys
 # Add `-aes256` and `-passout pass:password` to genrsa commands
@@ -17,7 +19,9 @@ CERT_DIR="$DIR_NAME/files/secrets";
 ##### TLS Key and Cert Generation
 
 function generateClientCert() {
-    local HOSTNAME="$1";
+    local HOST_TUPLE="$1";
+    local HOSTNAME="$(echo $HOST_TUPLE | cut -d: -f1)";
+    local IP_ADDRESS="$(echo $HOST_TUPLE | cut -d: -f2)";
 
     CLIENT_KEY="$CERT_DIR/$HOSTNAME.key";
     openssl genrsa \
@@ -31,6 +35,7 @@ function generateClientCert() {
         -out "$CLIENT_CSR" \
         -subj "/C=US/ST=State/L=City/O=Kube Clients/OU=IT/CN=$HOSTNAME";
 
+    echo "subjectAltName=IP:$IP_ADDRESS,DNS:$HOSTNAME" > "$TMP_CERT_EXTENSIONS_FILE";
     CLIENT_CERT="$CERT_DIR/$HOSTNAME.pem";
     openssl x509 \
         -req \
@@ -38,7 +43,8 @@ function generateClientCert() {
         -CA "$CA_CERT" \
         -CAkey "$CA_KEY" \
         -out "$CLIENT_CERT" \
-        -CAcreateserial;
+        -CAcreateserial \
+        -extfile "$TMP_CERT_EXTENSIONS_FILE";
 }
 
 CA_KEY="$CERT_DIR/ca.key";

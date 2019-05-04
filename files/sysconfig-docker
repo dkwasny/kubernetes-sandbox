@@ -1,13 +1,11 @@
 # /etc/sysconfig/docker
 
 # Modify these options if you want to change the way the docker daemon runs
-OPTIONS="--selinux-enabled \
-    --log-driver=journald \
-    --live-restore \
-    --tlsverify \
-    --tlscacert /etc/secrets/ca.pem \
-    --tlscert /etc/secrets/host.pem \
-    --tlskey /etc/secrets/host.key"
+OPTIONS="
+    --selinux-enabled
+    --log-driver journald
+    --live-restore
+"
 #if [ -z "${DOCKER_CERT_PATH}" ]; then
 #    DOCKER_CERT_PATH=/etc/docker
 #fi
