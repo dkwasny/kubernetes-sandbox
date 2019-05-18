@@ -34,4 +34,5 @@ KUBE_API_ARGS="
     --etcd-cafile /etc/secrets/ca.pem
     --etcd-certfile /etc/secrets/host.pem
     --etcd-keyfile /etc/secrets/host.key
+    --authorization-mode RBAC
 "

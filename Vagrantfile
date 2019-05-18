@@ -17,7 +17,7 @@ client_ip = "10.100.0.20"
 netmask = "255.255.0.0"
 
 Vagrant.configure("2") do |config|
-    config.vm.box = "fedora/29-cloud-base"
+    config.vm.box = "fedora/30-cloud-base"
 
     config.vm.provider :virtualbox do |vb|
         vb.cpus = vm_cpus

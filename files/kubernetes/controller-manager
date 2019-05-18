@@ -11,4 +11,8 @@ KUBE_CONTROLLER_MANAGER_ARGS="
     --service-cluster-ip-range 10.102.0.0/16
     --service-account-private-key-file /etc/secrets/service-account-private.key
     --kubeconfig /etc/kubernetes/kubeconfig.yaml
+    --client-ca-file /etc/secrets/ca.pem
+    --tls-cert-file /etc/secrets/host.pem
+    --tls-private-key-file /etc/secrets/host.key
+    --root-ca-file /etc/secrets/ca.pem
 "

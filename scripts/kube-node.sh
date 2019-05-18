@@ -6,9 +6,10 @@ echo "Setting up kube-node-$NODE_ID";
 
 echo "Installing packages";
 dnf -y install \
-	bridge-utils \
-	kubernetes \
-	flannel;
+    bridge-utils \
+    kubernetes \
+    flannel \
+    vim-enhanced;
 
 echo "Copying secrets";
 mkdir /etc/secrets;

@@ -4,9 +4,10 @@ echo "Setting up kube-master";
 
 echo "Installing packages";
 dnf -y install \
-	kubernetes \
-	etcd \
-	flannel;
+    kubernetes \
+    etcd \
+    flannel \
+    vim-enhanced;
 
 echo "Copying secrets";
 mkdir /etc/secrets;
@@ -24,6 +25,11 @@ systemctl enable --now etcd;
 
 echo "Configuring Flannel";
 cp /vagrant/sysconfig-flanneld /etc/sysconfig/flanneld;
+# Flannel is slow to update to the etcdctl v3 API.
+# I don't think you can write data with the v3 API to be read with thew v2 API.
+# Force the use of the v2 API until flannel breaks...again.
+# https://github.com/coreos/flannel/issues/554
+export ETCDCTL_API=2;
 etcdctl \
     --ca-file /etc/secrets/ca.pem \
     --cert-file /etc/secrets/host.pem \
@@ -47,3 +53,15 @@ echo "Starting Kubernetes";
 systemctl enable --now kube-apiserver;
 systemctl enable --now kube-controller-manager;
 systemctl enable --now kube-scheduler;
+
+echo "Configuring base Kubernetes users";
+kubectl create clusterrolebinding kube-admin-cluster-admin \
+    --clusterrole cluster-admin \
+    --user kube-admin;
+# TODO: make dynamic based on nodes...or not
+kubectl create clusterrolebinding kube-master-cluster-admin \
+    --clusterrole cluster-admin \
+    --user kube-master;
+kubectl create clusterrolebinding kube-node-1-cluster-admin \
+    --clusterrole cluster-admin \
+    --user kube-node-1;
