@@ -18,4 +18,6 @@ KUBELET_ARGS="
     --client-ca-file /etc/secrets/ca.pem
     --tls-cert-file /etc/secrets/host.pem
     --tls-private-key-file /etc/secrets/host.key
+    --cluster-dns 10.102.1.1
+    --cluster-domain kwas-cluster.local
 "
