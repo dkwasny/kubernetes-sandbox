@@ -3,12 +3,12 @@
 # List of "clients" to generate certificats for.
 # Machines have an IP address attached, users do not.
 CLIENTS="
-    kube-master:10.100.0.10
-    kube-node-1:10.100.0.11
-    kube-client:10.100.0.20
-    kube-admin
-    kwas-dashboard
-    coredns
+    kube-master/kube-master/10.100.0.10
+    kube-node-1/kube-node-1/10.100.0.11
+    kube-client/kube-client/10.100.0.20
+    kube-admin/kube-admin
+    kwas-dashboard/kwas-dashboard
+    coredns/system:serviceaccount:kube-system:coredns
 ";
 
 DIR_NAME="$(dirname $0)";
@@ -25,17 +25,18 @@ TMP_CERT_EXTENSIONS_FILE="$(mktemp)";
 
 function generateClientCert() {
     local HOST_TUPLE="$1";
-    local HOSTNAME="$(echo $HOST_TUPLE | cut -d: -f1)";
-    local IP_ADDRESS="$(echo $HOST_TUPLE | cut -d: -f2 -s)";
+    local FILENAME="$(echo $HOST_TUPLE | cut -d/ -f1)";
+    local HOSTNAME="$(echo $HOST_TUPLE | cut -d/ -f2)";
+    local IP_ADDRESS="$(echo $HOST_TUPLE | cut -d/ -f3 -s)";
 
     echo "Generating private key for $HOSTNAME";
-    CLIENT_KEY="$CERT_DIR/$HOSTNAME.key";
+    CLIENT_KEY="$CERT_DIR/$FILENAME.key";
     openssl genrsa \
         -out "$CLIENT_KEY" \
         2048;
 
     echo "Generating CSR for $HOSTNAME";
-    CLIENT_CSR="$CERT_DIR/$HOSTNAME-csr.pem";
+    CLIENT_CSR="$CERT_DIR/$FILENAME-csr.pem";
     openssl req \
         -new \
         -key "$CLIENT_KEY" \
@@ -47,7 +48,7 @@ function generateClientCert() {
     fi;
 
     echo "Generating certificate for $HOSTNAME";
-    CLIENT_CERT="$CERT_DIR/$HOSTNAME.pem";
+    CLIENT_CERT="$CERT_DIR/$FILENAME.pem";
     openssl x509 \
         -req \
         -in "$CLIENT_CSR" \

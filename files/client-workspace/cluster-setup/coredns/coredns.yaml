@@ -60,7 +60,7 @@ data:
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
           endpoint https://10.100.0.10:6443
-          kubeconfig /etc/configmaps/kubeconfig.yaml
+          tls /etc/secrets/coredns.pem /etc/secrets/coredns.key /etc/secrets/ca.pem
         }
         prometheus :9153
         forward . /etc/resolv.conf
@@ -117,9 +117,6 @@ spec:
         - mountPath: /etc/secrets
           name: kwas-secret-volume
           readOnly: true
-        - mountPath: /etc/configmaps
-          name: kwas-config-volume
-          readOnly: true
         ports:
         - containerPort: 53
           name: dns
@@ -160,9 +157,6 @@ spec:
             items:
             - key: Corefile
               path: Corefile
-        - name: kwas-config-volume
-          configMap:
-            name: kwas-coredns-configmap
         - name: kwas-secret-volume
           secret:
             secretName: kwas-coredns-secret

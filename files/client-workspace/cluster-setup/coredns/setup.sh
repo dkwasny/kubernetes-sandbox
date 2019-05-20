@@ -2,11 +2,6 @@
 
 DIR=$(dirname $0);
 
-echo "Creating configmap";
-kubectl create configmap kwas-coredns-configmap \
-    --from-file "$DIR/kubeconfig.yaml" \
-    --namespace kube-system;
-
 echo "Creating secret";
 kubectl create secret generic kwas-coredns-secret \
     --from-file /etc/secrets/coredns.pem \
