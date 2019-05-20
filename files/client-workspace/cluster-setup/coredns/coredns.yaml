@@ -59,6 +59,8 @@ data:
         kubernetes kwas-cluster.local in-addr.arpa ip6.arpa {
           pods insecure
           fallthrough in-addr.arpa ip6.arpa
+          endpoint https://10.100.0.10:6443
+          kubeconfig /etc/configmaps/kubeconfig.yaml
         }
         prometheus :9153
         forward . /etc/resolv.conf
@@ -112,6 +114,12 @@ spec:
         - name: config-volume
           mountPath: /etc/coredns
           readOnly: true
+        - mountPath: /etc/secrets
+          name: kwas-secret-volume
+          readOnly: true
+        - mountPath: /etc/configmaps
+          name: kwas-config-volume
+          readOnly: true
         ports:
         - containerPort: 53
           name: dns
@@ -152,6 +160,12 @@ spec:
             items:
             - key: Corefile
               path: Corefile
+        - name: kwas-config-volume
+          configMap:
+            name: kwas-coredns-configmap
+        - name: kwas-secret-volume
+          secret:
+            secretName: kwas-coredns-secret
 ---
 apiVersion: v1
 kind: Service

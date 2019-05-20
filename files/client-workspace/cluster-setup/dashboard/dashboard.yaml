@@ -127,9 +127,11 @@ spec:
         - mountPath: /tmp
           name: tmp-volume
         - mountPath: /etc/secrets
-          name: kwas-secrets-volume
+          name: kwas-secret-volume
+          readOnly: true
         - mountPath: /etc/configmaps
           name: kwas-config-volume
+          readOnly: true
         livenessProbe:
           httpGet:
             scheme: HTTPS
@@ -143,7 +145,7 @@ spec:
           secretName: kubernetes-dashboard-certs
       - name: tmp-volume
         emptyDir: {}
-      - name: kwas-secrets-volume
+      - name: kwas-secret-volume
         secret:
           secretName: kwas-dashboard-secret
       - name: kwas-config-volume

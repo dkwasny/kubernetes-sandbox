@@ -8,6 +8,7 @@ CLIENTS="
     kube-client:10.100.0.20
     kube-admin
     kwas-dashboard
+    coredns
 ";
 
 DIR_NAME="$(dirname $0)";
