@@ -3,12 +3,12 @@
 # List of "clients" to generate certificats for.
 # Machines have an IP address attached, users do not.
 CLIENTS="
-    kube-master/kube-master/10.100.0.10
-    kube-node-1/kube-node-1/10.100.0.11
-    kube-client/kube-client/10.100.0.20
+    kube-master/kube-master.kwas-cluster.local/10.100.0.10
+    kube-node-1/kube-node-1.kwas-cluster.local/10.100.0.11
+    kube-client/kube-client.kwas-cluster.local/10.100.0.20
     kube-admin/kube-admin
-    kwas-dashboard/kwas-dashboard
-    coredns/system:serviceaccount:kube-system:coredns
+    kube-dashboard/system:serviceaccount:kube-system:kubernetes-dashboard
+    kube-coredns/system:serviceaccount:kube-system:coredns
 ";
 
 DIR_NAME="$(dirname $0)";

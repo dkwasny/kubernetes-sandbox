@@ -8,7 +8,7 @@ KUBELET_ADDRESS="--address 10.100.0.1{id}"
 # KUBELET_PORT="--port=10250"
 
 # You may leave this blank to use the actual hostname
-KUBELET_HOSTNAME=""
+KUBELET_HOSTNAME="--hostname-override kube-node-{id}.kwas-cluster.local"
 
 # Add your own!
 KUBELET_ARGS="
@@ -18,6 +18,6 @@ KUBELET_ARGS="
     --client-ca-file /etc/secrets/ca.pem
     --tls-cert-file /etc/secrets/host.pem
     --tls-private-key-file /etc/secrets/host.key
-    --cluster-dns 10.102.1.1
-    --cluster-domain kwas-cluster.local
+    --cluster-dns 10.100.0.10
+    --cluster-domain kube-cluster.local
 "

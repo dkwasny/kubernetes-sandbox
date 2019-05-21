@@ -1,0 +1,20 @@
+. {
+    errors
+    health :8931
+    ready
+    kubernetes kube-cluster.local in-addr.arpa ip6.arpa {
+      pods insecure
+      fallthrough in-addr.arpa ip6.arpa
+      endpoint https://kube-master.kwas-cluster.local:6443
+      tls /etc/secrets/kube-coredns.pem /etc/secrets/kube-coredns.key /etc/secrets/ca.pem
+    }
+    prometheus :9153
+    hosts /etc/coredns/hosts {
+      fallthrough
+    }
+    forward . 8.8.8.8 8.8.4.4
+    cache 30
+    loop
+    reload
+    loadbalance
+}

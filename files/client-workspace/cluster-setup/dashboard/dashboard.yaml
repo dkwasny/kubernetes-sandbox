@@ -118,7 +118,7 @@ spec:
           # Uncomment the following line to manually specify Kubernetes API server Host
           # If not specified, Dashboard will attempt to auto discover the API server and connect
           # to it. Uncomment only if the default does not work.
-          - --apiserver-host=https://kube-master:6443
+          - --apiserver-host=https://kube-master.kwas-cluster.local:6443
           - --kubeconfig=/etc/configmaps/kubeconfig.yaml
         volumeMounts:
         - name: kubernetes-dashboard-certs
@@ -165,13 +165,11 @@ apiVersion: v1
 metadata:
   labels:
     k8s-app: kubernetes-dashboard
-  name: kwas-kubernetes-dashboard
+  name: kubernetes-dashboard
   namespace: kube-system
 spec:
   ports:
-    - port: 8443
-      nodePort: 30443
+    - port: 443
+      targetPort: 8443
   selector:
     k8s-app: kubernetes-dashboard
-  type: NodePort
-

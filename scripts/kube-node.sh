@@ -18,6 +18,11 @@ cp "/vagrant/secrets/kube-node-$NODE_ID.pem" /etc/secrets/host.pem;
 cp "/vagrant/secrets/kube-node-$NODE_ID.key" /etc/secrets/host.key;
 chmod 644 /etc/secrets/*;
 
+echo "Reconfigure system DNS client";
+cp /vagrant/no-dns.conf /etc/NetworkManager/conf.d/;
+systemctl restart NetworkManager;
+cp /vagrant/resolv.conf /etc/resolv.conf;
+
 echo "Configuring Flannel";
 cp /vagrant/sysconfig-flanneld /etc/sysconfig/flanneld;
 

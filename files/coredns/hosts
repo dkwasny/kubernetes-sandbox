@@ -1,0 +1,3 @@
+10.100.0.10 kube-master.kwas-cluster.local
+10.100.0.11 kube-node-1.kwas-cluster.local
+10.100.0.20 kube-client.kwas-cluster.local

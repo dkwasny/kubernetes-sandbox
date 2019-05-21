@@ -14,7 +14,7 @@ KUBE_API_ADDRESS="--bind-address=10.100.0.10"
 # KUBELET_PORT="--kubelet-port=10250"
 
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=https://kube-master:2379"
+KUBE_ETCD_SERVERS="--etcd-servers=https://kube-master.kwas-cluster.local:2379"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.102.0.0/16"

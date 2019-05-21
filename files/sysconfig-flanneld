@@ -1,7 +1,7 @@
 # Flanneld configuration options
 
 # etcd url location.  Point this to the server where etcd runs
-FLANNEL_ETCD_ENDPOINTS="https://kube-master:2379"
+FLANNEL_ETCD_ENDPOINTS="https://kube-master.kwas-cluster.local:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
