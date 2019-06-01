@@ -2,26 +2,42 @@
 apiVersion: v1
 kind: Pod
 metadata:
-    name: httpd-pod
-    labels:
-        kwas-label: httpd-label
+  name: httpd-pod
+  labels:
+    kwas-label: httpd-label
 spec:
-    containers:
-      - name: httpd-container
-        image: httpd
-        ports:
-          - name: http-port
-            containerPort: 80
+  containers:
+  - name: httpd-container
+    image: httpd
+    ports:
+    - name: http-port
+      containerPort: 80
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-    name: httpd-service
+  name: httpd-service
+  labels:
+    kwas-label: httpd-label
 spec:
-    ports:
-      - name: http
-        port: 80
-        nodePort: 30080
-    selector:
-        kwas-label: httpd-label
-    type: NodePort
+  selector:
+    kwas-label: httpd-label
+  ports:
+  - port: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: httpd-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /httpd-pod
+        backend:
+          serviceName: httpd-service
+          servicePort: 80

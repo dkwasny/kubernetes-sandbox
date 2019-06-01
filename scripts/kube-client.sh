@@ -12,6 +12,8 @@ cp /vagrant/secrets/kube-client.pem /etc/secrets/host.pem;
 cp /vagrant/secrets/kube-client.key /etc/secrets/host.key;
 cp /vagrant/secrets/kube-admin.* /etc/secrets/;
 cp /vagrant/secrets/kube-dashboard.* /etc/secrets/;
+cp /vagrant/secrets/kube-ingress-nginx.* /etc/secrets/;
+cp /vagrant/secrets/ingress-wildcard.* /etc/secrets/;
 chmod 644 /etc/secrets/*;
 
 echo "Reconfigure system DNS client";

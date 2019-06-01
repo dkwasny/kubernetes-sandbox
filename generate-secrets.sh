@@ -9,6 +9,8 @@ CLIENTS="
     kube-admin/kube-admin
     kube-dashboard/system:serviceaccount:kube-system:kubernetes-dashboard
     kube-coredns/system:serviceaccount:kube-system:coredns
+    kube-ingress-nginx/system:serviceaccount:ingress-nginx:nginx-ingress-serviceaccount
+    ingress-wildcard/*.kube-ingress.local
 ";
 
 DIR_NAME="$(dirname $0)";

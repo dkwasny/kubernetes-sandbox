@@ -20,5 +20,5 @@ kubectl apply -f "$DIR/login-account.yaml";
 echo "Deploying the dashboard";
 kubectl apply -f "$DIR/dashboard.yaml";
 
-echo "Deploying the nodeport service";
-kubectl apply -f "$DIR/nodeport-service.yaml";
+echo "Creating the ingress entry";
+kubectl apply -f "$DIR/ingress.yaml";
