@@ -47,6 +47,8 @@ function generateClientCert() {
 
     if [ -n "$IP_ADDRESS" ]; then
         echo "subjectAltName=IP:$IP_ADDRESS,DNS:$HOSTNAME" > "$TMP_CERT_EXTENSIONS_FILE";
+    else
+        echo "" > "$TMP_CERT_EXTENSIONS_FILE";
     fi;
 
     echo "Generating certificate for $HOSTNAME";
