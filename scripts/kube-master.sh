@@ -8,7 +8,8 @@ dnf -y install \
     etcd \
     flannel \
     vim-enhanced \
-    wget;
+    wget \
+    bind-utils;
 
 echo "Copying secrets";
 mkdir /etc/secrets;

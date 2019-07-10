@@ -35,4 +35,5 @@ KUBE_API_ARGS="
     --etcd-certfile /etc/secrets/host.pem
     --etcd-keyfile /etc/secrets/host.key
     --authorization-mode RBAC
+    --advertise-address 10.100.0.10
 "

@@ -16,3 +16,6 @@ echo "Installing the Ingress Controller";
 
 echo "Installing the Kubernetes dashboard";
 "$DIR/dashboard/install.sh";
+
+echo "Installing tiller";
+"$DIR/tiller/install.sh";

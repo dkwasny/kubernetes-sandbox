@@ -9,7 +9,8 @@ dnf -y install \
     bridge-utils \
     kubernetes \
     flannel \
-    vim-enhanced;
+    vim-enhanced \
+    bind-utils;
 
 echo "Copying secrets";
 mkdir /etc/secrets;

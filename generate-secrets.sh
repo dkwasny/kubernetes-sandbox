@@ -10,6 +10,7 @@ CLIENTS="
     kube-dashboard/system:serviceaccount:kube-system:kubernetes-dashboard
     kube-coredns/system:serviceaccount:kube-system:coredns
     kube-ingress-nginx/system:serviceaccount:ingress-nginx:nginx-ingress-serviceaccount
+    kube-tiller/system:serviceaccount:kube-system:tiller
     ingress-wildcard/*.kube-ingress.local
 ";
 
