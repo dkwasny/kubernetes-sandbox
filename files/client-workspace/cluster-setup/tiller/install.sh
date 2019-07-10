@@ -12,4 +12,4 @@ helm init \
     --tiller-tls-verify \
     --tiller-tls-cert /etc/secrets/kube-tiller.pem \
     --tiller-tls-key /etc/secrets/kube-tiller.key \
-    --tiller-tls-ca-cert /etc/secrets/ca.pem;
+    --tls-ca-cert /etc/secrets/ca.pem;
