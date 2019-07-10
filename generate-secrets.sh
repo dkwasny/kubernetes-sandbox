@@ -60,7 +60,8 @@ function generateClientCert() {
         -CAkey "$CA_KEY" \
         -out "$CLIENT_CERT" \
         -CAcreateserial \
-        -extfile "$TMP_CERT_EXTENSIONS_FILE";
+        -extfile "$TMP_CERT_EXTENSIONS_FILE" \
+        -sha256;
 }
 
 echo "Generating CA's private key";
@@ -77,7 +78,8 @@ openssl req \
     -days 365 \
     -key "$CA_KEY" \
     -out "$CA_CERT" \
-    -subj "/C=US/ST=State/L=City/O=Honest Dave's Certs/OU=IT/CN=honestdave.com";
+    -subj "/C=US/ST=State/L=City/O=Honest Dave's Certs/OU=IT/CN=honestdave.com" \
+    -sha256;
 
 for i in $CLIENTS; do
     generateClientCert "$i";
