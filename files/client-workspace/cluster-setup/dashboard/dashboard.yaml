@@ -118,20 +118,12 @@ spec:
           # Uncomment the following line to manually specify Kubernetes API server Host
           # If not specified, Dashboard will attempt to auto discover the API server and connect
           # to it. Uncomment only if the default does not work.
-          - --apiserver-host=https://kube-master.kwas-cluster.local:6443
-          - --kubeconfig=/etc/configmaps/kubeconfig.yaml
         volumeMounts:
         - name: kubernetes-dashboard-certs
           mountPath: /certs
           # Create on-disk volume to store exec logs
         - mountPath: /tmp
           name: tmp-volume
-        - mountPath: /etc/secrets
-          name: kwas-secret-volume
-          readOnly: true
-        - mountPath: /etc/configmaps
-          name: kwas-config-volume
-          readOnly: true
         livenessProbe:
           httpGet:
             scheme: HTTPS
@@ -145,12 +137,6 @@ spec:
           secretName: kubernetes-dashboard-certs
       - name: tmp-volume
         emptyDir: {}
-      - name: kwas-secret-volume
-        secret:
-          secretName: kwas-dashboard-secret
-      - name: kwas-config-volume
-        configMap:
-          name: kwas-dashboard-configmap
       serviceAccountName: kubernetes-dashboard
       # Comment the following tolerations if Dashboard must not be deployed on master
       tolerations:

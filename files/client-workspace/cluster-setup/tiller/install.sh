@@ -10,8 +10,8 @@ helm init \
     --service-account tiller \
     --tiller-tls \
     --tiller-tls-verify \
-    --tiller-tls-cert /etc/secrets/kube-tiller.pem \
-    --tiller-tls-key /etc/secrets/kube-tiller.key \
+    --tiller-tls-cert /etc/secrets/tiller.pem \
+    --tiller-tls-key /etc/secrets/tiller.key \
     --tls-ca-cert /etc/secrets/ca.pem;
 
 echo "Linking client certs";

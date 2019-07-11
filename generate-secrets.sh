@@ -10,10 +10,8 @@ CLIENTS="
     kube-client/kube-client.kwas-cluster.local/10.100.0.20
     kube-apiserver/kube-master.kwas-cluster.local/10.100.0.10,10.102.0.1
     kube-admin/kube-admin
-    kube-dashboard/system:serviceaccount:kube-system:kubernetes-dashboard
     kube-coredns/system:serviceaccount:kube-system:coredns
-    kube-ingress-nginx/system:serviceaccount:ingress-nginx:nginx-ingress-serviceaccount
-    kube-tiller/system:serviceaccount:kube-system:tiller
+    tiller/tiller
     ingress-wildcard/*.kube-ingress.local
 ";
 
