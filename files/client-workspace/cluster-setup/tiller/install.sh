@@ -13,3 +13,7 @@ helm init \
     --tiller-tls-cert /etc/secrets/kube-tiller.pem \
     --tiller-tls-key /etc/secrets/kube-tiller.key \
     --tls-ca-cert /etc/secrets/ca.pem;
+
+echo "Linking client certs";
+ln -s /etc/secrets/host.pem ~/.helm/cert.pem;
+ln -s /etc/secrets/host.key ~/.helm/key.pem;

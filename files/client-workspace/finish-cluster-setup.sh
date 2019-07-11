@@ -19,3 +19,6 @@ echo "Installing the Kubernetes dashboard";
 
 echo "Installing tiller";
 "$DIR/tiller/install.sh";
+
+echo "Installing Istio";
+"$DIR/install-istio.sh";

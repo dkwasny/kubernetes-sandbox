@@ -2,10 +2,13 @@
 
 # List of "clients" to generate certificats for.
 # Machines have an IP address attached, users do not.
+#
+# Format: {filename}/{hostname or username}/{optional csv of possible ip addresses}
 CLIENTS="
     kube-master/kube-master.kwas-cluster.local/10.100.0.10
     kube-node-1/kube-node-1.kwas-cluster.local/10.100.0.11
     kube-client/kube-client.kwas-cluster.local/10.100.0.20
+    kube-apiserver/kube-master.kwas-cluster.local/10.100.0.10,10.102.0.1
     kube-admin/kube-admin
     kube-dashboard/system:serviceaccount:kube-system:kubernetes-dashboard
     kube-coredns/system:serviceaccount:kube-system:coredns
@@ -26,11 +29,20 @@ TMP_CERT_EXTENSIONS_FILE="$(mktemp)";
 
 ##### TLS Key and Cert Generation
 
+function createIPAddressString() {
+    local INPUT="$1";
+    local OUTPUT="";
+    for IP in $(echo "$INPUT" | sed "s/,/ /g"); do
+        OUTPUT="${OUTPUT}IP:$IP,";
+    done;
+    echo "$OUTPUT";
+}
+
 function generateClientCert() {
     local HOST_TUPLE="$1";
     local FILENAME="$(echo $HOST_TUPLE | cut -d/ -f1)";
     local HOSTNAME="$(echo $HOST_TUPLE | cut -d/ -f2)";
-    local IP_ADDRESS="$(echo $HOST_TUPLE | cut -d/ -f3 -s)";
+    local IP_ADDRESSES="$(echo $HOST_TUPLE | cut -d/ -f3 -s)";
 
     echo "Generating private key for $HOSTNAME";
     CLIENT_KEY="$CERT_DIR/$FILENAME.key";
@@ -46,8 +58,9 @@ function generateClientCert() {
         -out "$CLIENT_CSR" \
         -subj "/C=US/ST=State/L=City/O=Kube Clients/OU=IT/CN=$HOSTNAME";
 
-    if [ -n "$IP_ADDRESS" ]; then
-        echo "subjectAltName=IP:$IP_ADDRESS,DNS:$HOSTNAME" > "$TMP_CERT_EXTENSIONS_FILE";
+    if [ -n "$IP_ADDRESSES" ]; then
+		IP_ADDRESS_STRING=$(createIPAddressString "$IP_ADDRESSES");
+        echo "subjectAltName=${IP_ADDRESS_STRING}DNS:$HOSTNAME" > "$TMP_CERT_EXTENSIONS_FILE";
     else
         echo "" > "$TMP_CERT_EXTENSIONS_FILE";
     fi;

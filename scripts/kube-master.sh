@@ -16,6 +16,7 @@ mkdir /etc/secrets;
 cp /vagrant/secrets/ca.pem /etc/secrets/ca.pem;
 cp /vagrant/secrets/kube-master.pem /etc/secrets/host.pem;
 cp /vagrant/secrets/kube-master.key /etc/secrets/host.key;
+cp /vagrant/secrets/kube-apiserver.* /etc/secrets/;
 cp /vagrant/secrets/service-account-* /etc/secrets/;
 cp /vagrant/secrets/kube-coredns.* /etc/secrets/;
 chmod 644 /etc/secrets/*;

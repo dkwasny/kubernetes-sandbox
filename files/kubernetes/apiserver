@@ -26,8 +26,8 @@ KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.102.0.0/16"
 KUBE_API_ARGS="
     --service-account-key-file=/etc/secrets/service-account-public.key
     --client-ca-file /etc/secrets/ca.pem
-    --tls-cert-file /etc/secrets/host.pem
-    --tls-private-key-file /etc/secrets/host.key
+    --tls-cert-file /etc/secrets/kube-apiserver.pem
+    --tls-private-key-file /etc/secrets/kube-apiserver.key
     --kubelet-certificate-authority /etc/secrets/ca.pem
     --kubelet-client-certificate /etc/secrets/host.pem
     --kubelet-client-key /etc/secrets/host.key
