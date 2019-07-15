@@ -20,6 +20,9 @@ echo "Installing the Ingress Controller";
 echo "Installing the Kubernetes dashboard";
 "$DIR/dashboard/install.sh";
 
+echo "Installing the container registry";
+"$DIR/docker-registry/install.sh";
+
 # TODO: Not yet
 #echo "Installing Istio";
 #"$DIR/install-istio.sh";

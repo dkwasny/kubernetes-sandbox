@@ -1,0 +1,11 @@
+---
+ingress:
+  enabled: true
+
+  hosts:
+  - registry.kube-ingress.local
+
+  tls:
+  - secretName: wildcard-ingress-secret
+    hosts:
+    - registry.kube-ingress.local
