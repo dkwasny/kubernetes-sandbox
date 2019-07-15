@@ -2,6 +2,9 @@
 
 echo "Setting up kube-client";
 
+echo "Configuring dnf";
+echo "fastestmirror=True" >> /etc/dnf/dnf.conf;
+
 echo "Installing packages";
 dnf -y install \
     kubernetes-client \

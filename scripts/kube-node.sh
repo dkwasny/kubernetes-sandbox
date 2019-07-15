@@ -4,6 +4,9 @@ NODE_ID="$1";
 
 echo "Setting up kube-node-$NODE_ID";
 
+echo "Configuring dnf";
+echo "fastestmirror=True" >> /etc/dnf/dnf.conf;
+
 echo "Installing packages";
 dnf -y install \
     bridge-utils \
