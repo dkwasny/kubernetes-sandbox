@@ -23,6 +23,9 @@ echo "Installing the Kubernetes dashboard";
 echo "Installing the container registry";
 "$DIR/docker-registry/install.sh";
 
+echo "Installing Heapster";
+"$DIR/install-heapster.sh";
+
 # TODO: Not yet
 #echo "Installing Istio";
 #"$DIR/install-istio.sh";

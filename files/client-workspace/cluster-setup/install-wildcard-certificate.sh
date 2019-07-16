@@ -8,7 +8,6 @@ DIR=$(dirname $0);
 NAMESPACES="
     kube-system
     default
-    docker-registry
 ";
 
 for NAMESPACE in $NAMESPACES; do

@@ -22,6 +22,10 @@ cp "/vagrant/secrets/kube-node-$NODE_ID.pem" /etc/secrets/host.pem;
 cp "/vagrant/secrets/kube-node-$NODE_ID.key" /etc/secrets/host.key;
 chmod 644 /etc/secrets/*;
 
+echo "Installing ca.crt to /etc/docker/certs.d";
+mkdir /etc/docker/certs.d/registry.kube-ingress.local:30443;
+ln -s /etc/secrets/ca.pem /etc/docker/certs.d/registry.kube-ingress.local:30443/ca.crt;
+
 echo "Reconfigure system DNS client";
 cp /vagrant/no-dns.conf /etc/NetworkManager/conf.d/;
 systemctl restart NetworkManager;

@@ -2,6 +2,9 @@
 ingress:
   enabled: true
 
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 0
+
   hosts:
   - registry.kube-ingress.local
 
