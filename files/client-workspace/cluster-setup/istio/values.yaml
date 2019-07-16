@@ -1,0 +1,40 @@
+# Based off of https://github.com/istio/istio/blob/master/install/kubernetes/helm/istio/values-istio-minimal.yaml
+---
+pilot:
+  enabled: true
+  sidecar: false
+  resources:
+    requests:
+      memory: 256Mi
+
+gateways:
+  enabled: false
+
+security:
+  enabled: false
+
+sidecarInjectorWebhook:
+  enabled: false
+
+galley:
+  enabled: false
+
+mixer:
+  policy:
+    enabled: false
+  telemetry:
+    enabled: false
+    resources:
+      requests:
+        memory: 512Mi
+
+prometheus:
+  enabled: false
+
+global:
+
+  proxy:
+    envoyStatsd:
+      enabled: false
+  
+  useMCP: false
