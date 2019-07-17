@@ -62,7 +62,7 @@ function generateClientCert() {
         -extfile "$TMP_CERT_EXTENSIONS_FILE" \
         -sha256;
 
-	echo "Clearing out the extensions file";
+    echo "Clearing out the extensions file";
     echo "" > "$TMP_CERT_EXTENSIONS_FILE";
 }
 
@@ -91,7 +91,7 @@ done;
 # Special altnames must be provided.
 echo "Generating kube-apiserver's certificate";
 echo "subjectAltName=IP:10.100.0.10,IP:10.102.0.1,DNS:kube-master.kwas-cluster.local,DNS:kubernetes.default.svc" > "$TMP_CERT_EXTENSIONS_FILE";
-generateClientCert "kube-apiserver/kube-master.kwas-cluster.local" "$TMP_CERT_EXTENSIONS_FILE";
+generateClientCert "kube-apiserver/kube-apiserver" "$TMP_CERT_EXTENSIONS_FILE";
 
 ##### Misc Key Generation
 
