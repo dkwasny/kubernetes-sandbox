@@ -5,36 +5,112 @@ pilot:
   sidecar: false
   resources:
     requests:
-      memory: 256Mi
+      cpu: 0
+      memory: 0
 
 gateways:
-  enabled: false
+  enabled: true
+  istio-ingressgateway:
+    enabled: true
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+    type: NodePort
+    ports:
+    - name: http2
+      port: 80
+      nodePort: 31080
+    - name: https
+      port: 443
+      nodePort: 31443
+    - name: status-port
+      port: 15020
+    - name: tcp
+      port: 31400
+      nodePort: 31400
 
 security:
-  enabled: false
+  enabled: true
 
 sidecarInjectorWebhook:
   enabled: false
 
 galley:
-  enabled: false
+  enabled: true
 
 mixer:
   policy:
-    enabled: false
+    enabled: true
   telemetry:
-    enabled: false
+    enabled: true
     resources:
       requests:
-        memory: 512Mi
+        cpu: 0
+        memory: 0
 
 prometheus:
-  enabled: false
+  enabled: true
+  contextPath: ""
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus-istio.kube-ingress.local
+    tls:
+    - secretName: wildcard-ingress-secret
+      hosts:
+      - prometheus-istio.kube-ingress.local
+
+kiali:
+  enabled: true
+  contextPath: ""
+  ingress:
+    enabled: true
+    hosts:
+    - kiali-istio.kube-ingress.local
+    tls:
+    - secretName: wildcard-ingress-secret
+      hosts:
+      - kiali-istio.kube-ingress.local
+
+grafana:
+  enabled: true
+  contextPath: ""
+  ingress:
+    enabled: true
+    hosts:
+    - grafana-istio.kube-ingress.local
+    tls:
+    - secretName: wildcard-ingress-secret
+      hosts:
+      - grafana-istio.kube-ingress.local
+
+tracing:
+  enabled: true
+  zipkin:
+    resources:
+      requests:
+        cpu: 0
+        memory: 0
+  ingress:
+    enabled: true
+    hosts:
+    - tracing-istio.kube-ingress.local
+    tls:
+    - secretName: wildcard-ingress-secret
+      hosts:
+      - tracing-istio.kube-ingress.local
 
 global:
 
   proxy:
+    clusterDomain: "kube-cluster.local"
     envoyStatsd:
       enabled: false
   
   useMCP: false
+
+  defaultResources:
+    requests:
+      cpu: 0
+      memory: 0

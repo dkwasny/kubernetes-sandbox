@@ -8,9 +8,13 @@ DIR=$(dirname $0);
 NAMESPACES="
     kube-system
     default
+    istio-system
 ";
 
 for NAMESPACE in $NAMESPACES; do
+    echo "Ensuring namespace exists";
+    kubectl create namespace "$NAMESPACE";
+
     echo "Installing wildcard secret to $NAMESPACE";
     kubectl create secret tls wildcard-ingress-secret \
         --key /etc/secrets/ingress-wildcard.key \

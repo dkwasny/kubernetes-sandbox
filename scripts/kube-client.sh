@@ -35,3 +35,9 @@ HELM_TAR="/tmp/helm.tar.gz";
 wget -q -O "$HELM_TAR" https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz;
 tar -x -f "$HELM_TAR" -C /tmp;
 cp /tmp/linux-amd64/helm /usr/bin/helm;
+
+echo "Installing istioctl";
+ISTIO_TAR="/tmp/istio.tar.gz";
+wget -q -O "$ISTIO_TAR" https://github.com/istio/istio/releases/download/1.2.2/istio-1.2.2-linux.tar.gz;
+tar -x -f "$ISTIO_TAR" -C /tmp;
+cp /tmp/istio-*/bin/istioctl /usr/bin/istioctl;

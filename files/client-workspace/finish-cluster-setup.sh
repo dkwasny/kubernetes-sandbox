@@ -24,7 +24,7 @@ echo "Installing the container registry";
 "$DIR/docker-registry/install.sh";
 
 echo "Installing Heapster";
-"$DIR/install-heapster.sh";
+"$DIR/heapster/install.sh";
 
 # TODO: Not yet
 #echo "Installing Istio";
