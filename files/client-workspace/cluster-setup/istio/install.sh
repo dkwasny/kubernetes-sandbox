@@ -13,8 +13,15 @@ helm install --tls istio.io/istio-init \
     --name istio-init \
     --namespace istio-system;
 
-echo "Sleeping for 10 seconds...";
-sleep 10;
+echo "Waiting for istio-init's jobs to finish";
+COUNT=0;
+while kubectl get job -n istio-system | grep "istio-init.*0/1" > /dev/null; do
+    sleep 5;
+    if [ $((COUNT += 1)) -gt 20 ]; then
+        echo "This is taking too long...";
+        exit 1;
+    fi;
+done;
 
 echo "Installing Istio";
 helm install --tls istio.io/istio \
