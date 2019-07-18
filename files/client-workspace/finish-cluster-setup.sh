@@ -26,6 +26,5 @@ echo "Installing the container registry";
 echo "Installing Heapster";
 "$DIR/heapster/install.sh";
 
-# TODO: Not yet
-#echo "Installing Istio";
-#"$DIR/install-istio.sh";
+echo "Installing Istio";
+"$DIR/install-istio.sh";
