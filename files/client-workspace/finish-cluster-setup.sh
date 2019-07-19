@@ -25,6 +25,3 @@ echo "Installing the container registry";
 
 echo "Installing Heapster";
 "$DIR/heapster/install.sh";
-
-echo "Installing Istio";
-"$DIR/istio/install.sh";
