@@ -34,7 +34,7 @@ security:
   enabled: true
 
 sidecarInjectorWebhook:
-  enabled: false
+  enabled: true
 
 galley:
   enabled: true

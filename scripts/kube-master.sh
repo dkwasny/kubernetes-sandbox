@@ -99,6 +99,7 @@ echo "Starting Kubernetes";
 systemctl enable --now kube-apiserver;
 systemctl enable --now kube-controller-manager;
 systemctl enable --now kube-scheduler;
+systemctl enable --now kube-proxy;
 
 echo "Configuring base Kubernetes users";
 kubectl create clusterrolebinding kube-admin-cluster-admin \

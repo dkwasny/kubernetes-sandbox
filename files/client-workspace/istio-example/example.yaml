@@ -1,0 +1,60 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-example-gateway
+spec:
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - example.kube-istio.local
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-example-virtual-service
+spec:
+  hosts:
+  - example.kube-istio.local
+  gateways:
+  - istio-example-gateway
+  http:
+  - route:
+    - destination:
+        host: istio-example-service.istio-example.svc.kube-cluster.local
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: istio-example-service
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 9080
+  selector:
+    kwas: istio-example
+
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: istio-example-httpd
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        kwas: istio-example
+    spec:
+      containers:
+      - name: httpd
+        image: httpd
+        ports:
+        - name: http
+          containerPort: 80

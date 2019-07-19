@@ -27,4 +27,4 @@ echo "Installing Heapster";
 "$DIR/heapster/install.sh";
 
 echo "Installing Istio";
-"$DIR/install-istio.sh";
+"$DIR/istio/install.sh";
