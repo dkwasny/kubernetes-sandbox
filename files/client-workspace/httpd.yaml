@@ -27,17 +27,55 @@ spec:
   - port: 80
 
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    kwas-label: nginx-label
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - name: http-port
+      containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    kwas-label: nginx-label
+spec:
+  selector:
+    kwas-label: nginx-label
+  ports:
+  - port: 80
+
+
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: httpd-ingress
+  name: http-example-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
+  - host: http-example.kube-ingress.local
+    http:
       paths:
-      - path: /httpd-pod
+      - path: /httpd
         backend:
           serviceName: httpd-service
           servicePort: 80
+      - path: /nginx
+        backend:
+          serviceName: nginx-service
+          servicePort: 80
+  tls:
+  - secretName: wildcard-ingress-secret
+    hosts:
+    - http-example.kube-ingress.local
